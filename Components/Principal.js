@@ -19,7 +19,7 @@ class Principal extends Component{
                             onPress={() => {
                                this.props.navigation.navigate('Noticias');
                             }}>
-                                <Text style={styles.titles} >Noticias</Text></TouchableOpacity>
+                                <Text style={styles.titles} >Tiempo actual</Text></TouchableOpacity>
                         </View>
                     </ImageBackground >
                 </View>

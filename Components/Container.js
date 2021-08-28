@@ -33,7 +33,7 @@ const MyStack = () => {
         <Stack.Screen
           name="Noticias"
           component={Noticias}
-          options={{title: 'Noticias'}}
+          options={{title: 'Tiempo actual'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

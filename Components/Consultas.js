@@ -2,22 +2,67 @@ import React, {Component} from 'react';
 import {Text, StyleSheet, View, TouchableOpacity, TextInput} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import { Marker } from 'react-native-maps';
 
 const countries = ["Aguascalientes","Baja California","Baja California Sur","Campeche","Coahuila","Colima","Chiapas","Chihuahua","Distrito Federal","Durango","Guanajuato","Guerrero","Hidalgo","Jalisco","México","Michoacán","Morelos","Nayarit","Nuevo León","Oaxaca","Puebla","Querétaro","Quintana Roo","San Luis Potosí","Sinaloa","Sonora","Tabasco","Tamaulipas","Tlaxcala","Veracruz","Yucatán","Zacatecas"
 ];
 
 class Consultas extends Component{
-    state={
-        estado: '',
+    constructor(props){
+    super(props);
+    this.state={
+        estado: 'Aguascalientes',
+        mensaje: '',
         resultados: '100',
-    };
+        data: [],
+        cargados: false,
+        loading: false,
+        url: 'https://api.datos.gob.mx/v1/condiciones-atmosfericas'
+    }
+    }
+    marcadoresC = () => {
+        if(this.state.cargados){
+            return this.state.data.map((data, i) => {
+                return (
+                    <Marker
+                        key={i}
+                        coordinate={{   latitude:  parseFloat(data.latitude), 
+                                        longitude: parseFloat(data.longitude)
+                                    }}
+                        title={data.state}
+                        description={data.skydescriptionlong}
+                    />
 
+                )
+            })
+        }
+    };
 
     getResultados = inputText=> {
         this.setState({resultados: inputText});
     };
+    getDatos_filtrados = () => {
+        this.setState({loading:true});
 
+        fetch(this.state.url + '?state=' + this.state.estado + '&pageSize=' + this.state.resultados)
+        .then(res => res.json())
+        .then(res =>{
+            this.setState({
+                data: res.results,
+                loading:false,
+                cargados:true,
+            })
+        })
+
+    };
     render(){
+        if(this.state.loading){
+            return(
+                <View>
+                    <Text> Cargando datos</Text>
+                </View>
+            );
+        }
         return(
             <View style={styles.view}>
                 <View style={styles.view1}>
@@ -41,7 +86,12 @@ class Consultas extends Component{
                         onChangeText={this.getResultados}
                     />
                     <View style={styles.viewbuttons} >
-                        <TouchableOpacity style={styles.butons}>
+                        <TouchableOpacity 
+                            style={styles.butons}
+                            onPress={() => {
+                                this.getDatos_filtrados();
+                              }}
+                        >
                             <Text>Consultar</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.butons}>
@@ -52,6 +102,7 @@ class Consultas extends Component{
                 </View>
                 <View style={styles.view2}>
                     <MapView
+                        showsUserLocation={true}
                         provider={PROVIDER_GOOGLE}
                         style={styles.map}
                         region={{
@@ -67,7 +118,7 @@ class Consultas extends Component{
                             longitudeDelta: 0.0421,
                         }}
                         maxZoomLevel={20}
-                        minZoomLevel={10}
+                        minZoomLevel={5}
                         mapType={'satellite'}
                         zoomEnabled={true}>
                         <MapView.Marker
@@ -76,6 +127,7 @@ class Consultas extends Component{
                                 longitude: -103.325833,
                             }}
                         />
+                        {this.marcadoresC()}
                     </MapView>
              
                 </View>
