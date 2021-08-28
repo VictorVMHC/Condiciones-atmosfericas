@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, TouchableOpacity, TextInput} from "react-native";
+import {Text, StyleSheet, View, TouchableOpacity, TextInput, ActivityIndicator} from "react-native";
 import SelectDropdown from 'react-native-select-dropdown';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import { Marker } from 'react-native-maps';
@@ -58,8 +58,9 @@ class Consultas extends Component{
     render(){
         if(this.state.loading){
             return(
-                <View>
-                    <Text> Cargando datos</Text>
+                <View style={styles.view}>
+                    <Text style={styles.titleC}> Cargando datos</Text>
+                    <ActivityIndicator  size="large" color="#00ff00"/>
                 </View>
             );
         }
@@ -163,7 +164,16 @@ const styles = StyleSheet.create({
     },
     butons: {
         flex: .5,
-    }
+    },
+    titleC:{
+        fontFamily: 'Open Sans',
+        fontSize: 50,
+        alignItems: 'center',
+        paddingLeft: 2,
+        color: 'black',
+        marginLeft: 15,
+        marginTop: '50%'
+    },
 });
 
 export default Consultas;

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet} from "react-native";
+import {Text, StyleSheet, View, ActivityIndicator, Image} from "react-native";
 
 
 class SplashScreen extends Component {
@@ -13,7 +13,12 @@ class SplashScreen extends Component {
     }
     render(){
         return(
-            <Text style={styles.title} > SplashScreen </Text>
+            <View>
+                <Image
+                    style={styles.imageS}
+                    source= {{uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/Logo_INECC.png'}}/>
+                <ActivityIndicator size="large" color="#00ff00" />
+            </View>
         );
     }
 };
@@ -24,6 +29,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         alignItems: 'center',
         paddingLeft: 2
+    },
+    imageS:{
+        marginTop: '50%',
+        width: 400,
+        height: 158,
     }
 });
 

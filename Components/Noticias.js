@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, FlatList, View} from "react-native";
+import {Text, StyleSheet, FlatList, View, ActivityIndicator} from "react-native";
 
 
 
@@ -46,8 +46,9 @@ class Noticias extends Component{
     render(){
         if(this.state.loading){
             return(
-                <View>
-                    <Text> Cargando datos</Text>
+                <View style={styles.view0}>
+                    <Text style={styles.titleC}> Cargando datos</Text>
+                    <ActivityIndicator  size="large" color="#00ff00"/>
                 </View>
             );
         }
@@ -151,6 +152,15 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
 
+    },
+    titleC:{
+        fontFamily: 'Open Sans',
+        fontSize: 50,
+        alignItems: 'center',
+        paddingLeft: 2,
+        color: 'black',
+        marginLeft: 15,
+        marginTop: '50%'
     },
 });
 
