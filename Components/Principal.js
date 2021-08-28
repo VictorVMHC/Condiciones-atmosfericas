@@ -14,12 +14,13 @@ class Principal extends Component{
                 <View style={styles.view3}>
                     <ImageBackground  source={{uri:'https://blog.tecnoceano.com/wp-content/uploads/2017/09/Huracan-1-750x400.jpg'}} style={styles.backgroudImage}>
                     <View style={styles.tarjetas}>
-                            <TouchableOpacity 
-                            style={styles.buttons}
+                            <TouchableOpacity
+                             style={styles.buttons}
                             onPress={() => {
-                                this.props.navigation.navigate('Noticias');
-                             }}> <Text style={styles.titles} >Noticias </Text></TouchableOpacity>
-                    </View>
+                               this.props.navigation.navigate('Noticias');
+                            }}>
+                                <Text style={styles.titles} >Noticias</Text></TouchableOpacity>
+                        </View>
                     </ImageBackground >
                 </View>
                 <View style={styles.view2}>

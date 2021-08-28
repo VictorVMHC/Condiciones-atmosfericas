@@ -14,13 +14,16 @@ const MyStack = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="SplasScreen"
+          headerShown 
           component={SplasScreen}
-          options={{ title: 'Splash' }}
+          options={{ title: 'Splash',
+          headerShown: false}}
         />
         <Stack.Screen
           name="Principal"
           component={Principal}
-          options={{ title: 'Inicio'}}
+          options={{ title: 'Inicio',
+          headerShown: false}}
         />
         <Stack.Screen
           name="Consultas"
